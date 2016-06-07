@@ -1,8 +1,7 @@
-# Sunfounder Sensor Kit C code for Raspberry Pi
 
 website:
-	www.sunfounder.com
+	www.adeept.com
 
 E-mail:
-	support@sunfounder.com
+	support@adeept.com
 
