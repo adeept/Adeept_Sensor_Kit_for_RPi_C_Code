@@ -19,7 +19,7 @@ int main(void)
 	char buf[BUFSIZE];
 	char tempBuf[5];
 	
-	fd = open("/sys/bus/w1/devices/28-00000495db35/w1_slave", O_RDONLY);
+	fd = open("/sys/bus/w1/devices/28-8000000178d0/w1_slave", O_RDONLY);
 
 	if(-1 == fd){
 		perror("open device file error");
