@@ -1,7 +1,3 @@
-/*
-* LED bar test program for RaspberryPi
-* www.linksprite.com
-*/
 #include <wiringPi.h>
 #include <stdio.h>
 #include <stdlib.h>
