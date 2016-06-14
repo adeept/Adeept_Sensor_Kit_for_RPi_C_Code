@@ -1,5 +1,5 @@
 /*
- * File name   : photoresistance.c
+ * File name   : photoresistor.c
  * Description : .
  * Website     : www.adeept.com
  * E-mail      : support@adeept.com

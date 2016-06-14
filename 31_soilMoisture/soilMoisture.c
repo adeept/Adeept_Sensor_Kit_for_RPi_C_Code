@@ -1,4 +1,6 @@
 /*
+ * File name   : soilMoisture.c
+ * Description : .
  * Website     : www.adeept.com
  * E-mail      : support@adeept.com
  * Author      : Jason
@@ -65,7 +67,7 @@ uchar get_ADC_Result(void)
 int main(void)
 {
 	uchar adcVal;
-	float vol;
+	uchar moi;
 
 	if(wiringPiSetup() == -1){
 		printf("setup wiringPi failed !");
@@ -78,8 +80,8 @@ int main(void)
 	while(1){
 		pinMode(ADC_DIO, OUTPUT);
 		adcVal = get_ADC_Result();
-		vol = 3.3/255 * adcVal;
-		printf("analog value: %03d   voltage: %.2fV\n", adcVal, vol);
+		moi = 255 - adcVal;
+		printf("analog value: %03d   moisture: %d\n", adcVal, moi);
 
 		delay(100);
 	}
