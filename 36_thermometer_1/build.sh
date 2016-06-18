@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Compiling..."
-gcc *.c -lwiringPi
+gcc *.c -o main -lwiringPi
 echo "Compile completed !"
