@@ -1,15 +1,6 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "ds18b20.h"
 
-#define  BUFSIZE  128
-
-int main(void)
+extern float ds18b20Read(void)
 {
 	float temp;
 	int i, j;
@@ -22,8 +13,8 @@ int main(void)
 	fd = open("/sys/bus/w1/devices/28-8000000178d0/w1_slave", O_RDONLY);
 
 	if(-1 == fd){
-		perror("open device file error");
-		return 1;
+		perror("open device file error\n");
+		return -1;
 	}
 
 	while(1){
@@ -35,7 +26,7 @@ int main(void)
 			if(errno == EINTR){
 				continue;	
 			}
-			perror("read()");
+			perror("read()\n");
 			close(fd);
 			return 1;
 		}
@@ -51,9 +42,9 @@ int main(void)
 
 	temp = (float)atoi(tempBuf) / 1000;
 
-	printf("%.3f C\n",temp);
+//	printf("%.3f C\n",temp);
 
 	close(fd);
 
-	return 0;
+	return temp;
 }
