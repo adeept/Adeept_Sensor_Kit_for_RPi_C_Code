@@ -1,8 +1,8 @@
 #include <wiringPi.h>
 #include <stdio.h>
 
-#define HallPin    0
-#define LedPin     1
+#define HallPin    1
+#define LedPin     0
 
 int main(void)
 {
