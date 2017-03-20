@@ -25,15 +25,16 @@ int main(void)
 	
 	pinMode(Flame_S, INPUT);
 
-	pullUpDnControl(Flame_S, PUD_DOWN);
+	pullUpDnControl(Flame_S, PUD_UP);
 	
-	if(wiringPiISR(Flame_S, INT_EDGE_RISING, myISR) < 0){
+	if(wiringPiISR(Flame_S, INT_EDGE_FALLING, myISR) < 0){
 		printf("ISR setup error!\n");
 		return -1;
 	}
 
 	while(1){
-		printf("test...\n");	
+		printf("test...\n");
+		delay(100);
 	}
 
 	return 0;
