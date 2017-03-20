@@ -1,6 +1,7 @@
 #include <wiringPi.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
   
 #define DATA_Pin 4  //DATA IN
 #define CLK_Pin  5  //CLK IN
@@ -8,7 +9,7 @@
 #define CmdMode  0x0000  // Work on 8-bit mode
 #define ON       0x00ff       // 8-bit 1 data
 #define SHUT     0x0000     // 8-bit 0 data
-  
+ 
 static int s_clk_flag = 0;
   
 void send16bitData(unsigned int data)
@@ -35,7 +36,7 @@ void send16bitData(unsigned int data)
             digitalWrite(CLK_Pin, HIGH);
             s_clk_flag = 1;
         }
-    delayMicroseconds(10);
+    	delayMicroseconds(10);
         data <<= 1;
     }
 }
@@ -63,7 +64,6 @@ void latchData(void)
     delayMicroseconds(500);
 } 
   
-  
 void sendLED(unsigned int LEDstate)
 {
   unsigned char i;
@@ -77,38 +77,48 @@ void sendLED(unsigned int LEDstate)
   }
 }
   
-int setup()
+int setup(void)
 {
-    printf("LED bar test code!n");
-    printf("Using DATA = GPIO4, CLK = GPIO5.n");   
+    printf("LED bar test code!\n");
+    printf("Using DATA = GPIO4, CLK = GPIO5.\n");   
      
     if(wiringPiSetup()==-1)
     {
-    printf("setup wiringPi failed ! n");
+    printf("setup wiringPi failed ! \n");
     return 1;
     }
             
     pinMode(DATA_Pin,OUTPUT);   //Data pin
-    pinMode(CLK_Pin,OUTPUT);  //CLK pin
+    pinMode(CLK_Pin,OUTPUT);    //CLK pin
     digitalWrite(DATA_Pin, LOW);
     digitalWrite(CLK_Pin, LOW);
     s_clk_flag = 0;
 }
-  
-int main()
+
+int setLedNum(int n)
 {
-  setup();
-  while(1)
-  {
-    unsigned int i = 0x0000;
-    unsigned int loop = 0x0;
-    while(i<=0x03ff)
-   {
-     send16bitData(CmdMode); //set LED Bar mode
-     sendLED(i);     //send LED Bar data
-     latchData();  //make it come into effect
-     i=i*2+1;
-     delay(100);
-   }
-  }
+	if(n<0 || n >10){
+		printf("n = [0, 10]\n");
+		return -1;
+	}
+
+    send16bitData(CmdMode);
+    sendLED(pow(2,n)-1); // 2^n-1
+    latchData();
+}
+  
+int main(void)
+{
+	int i = 0;
+
+	setup();
+
+	while(1){
+		for(i = 0; i < 11; i++){
+	 		setLedNum(i);    	
+			delay(1000);
+		}
+    }
+
+	return 0;
 }
