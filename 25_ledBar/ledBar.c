@@ -36,7 +36,7 @@ void send16bitData(unsigned int data)
             digitalWrite(CLK_Pin, HIGH);
             s_clk_flag = 1;
         }
-    	delayMicroseconds(10);
+    	delayMicroseconds(20);
         data <<= 1;
     }
 }
