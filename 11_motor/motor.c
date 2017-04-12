@@ -48,6 +48,9 @@ int main(void)
 
 		motor(1, 0);
 		delay(5000);
+		
+		motor(0, 1);//stop
+		delay(5000);
 	}
 
 	return 0;
