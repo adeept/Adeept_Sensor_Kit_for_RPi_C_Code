@@ -19,12 +19,15 @@ int main(void)
 	}
 	
 	pinMode(LaserRecv, INPUT);
+	pullUpDnControl(LaserRecv, PUD_DOWN);
 
 	while(1){
 		if(digitalRead(LaserRecv) == 0){
-			printf("Laser received...\n");
+			printf("Laser not received...\n");
 		}
-		printf("...Laser not received!\n");
+		else{
+			printf("...Laser received!\n");
+		}
 	}
 
 	return 0;
